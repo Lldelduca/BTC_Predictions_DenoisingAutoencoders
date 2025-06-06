@@ -32,77 +32,72 @@ To run the code, ensure all dependencies are installed, then execute the code ce
 ```mermaid
 flowchart TD
     %% Data Sources
-    subgraph "Data Acquisition"
-        MNIST["MNIST Data Loader"]:::data
-        Finance["Financial Data Scrapers"]:::data
+    subgraph "Data Sources"
+        FundInd["Fundamental Indicators (e.g. macro, FX, blockchain)"]:::data
+        TechInd["Technical Indicators (e.g. moving avg, RSI)"]:::data
+        LagPrices["Lagged BTC Prices (60-day window)"]:::data
     end
 
     %% Preprocessing
-    Preproc["Splitting, Scaling, Noise Injection, Lag Features"]:::process
-
-    %% Encoding
-    subgraph "Encoding Stage"
-        SAE["SAE Training"]:::model
-        SDAE["SDAE Training"]:::model
-    end
+    Preproc["Standardization + Interpolation + Splitting"]:::process
 
     %% Feature Selection
-    FS["Feature Selection & Combination"]:::process
+    subgraph "Feature Selection"
+        NoneFS["No Selection"]:::model
+        AE["Autoencoder (AE)"]:::model
+        DAE["Denoising Autoencoder (DAE)"]:::model
+    end
 
     %% Predictive Modeling
-    subgraph "Predictive Modeling"
-        LR["Linear Regression + Optuna"]:::model
-        SVR["SVR + Optuna"]:::model
-        LSTM["LSTM + Optuna"]:::model
+    subgraph "Modeling (Bayesian-tuned)"
+        LR["Linear Regression"]:::model
+        SVR["Support Vector Regression"]:::model
+        LSTM["LSTM Network"]:::model
+        SMA["2-Day Moving Average (Benchmark)"]:::benchmark
     end
 
-    %% Evaluation and Visualization
-    Eval{"Evaluation & Statistical Tests"}:::decision
-    Viz["Visualization & Reporting"]:::process
+    %% Evaluation
+    Eval["Evaluation: MAE, RMSE, MAPE"]:::decision
+    Results["Results: Interval-wise Performance"]:::process
 
     %% Documentation
-    subgraph "Project Documentation"
-        README["README.md"]:::data
-        LICENSE["LICENSE"]:::data
-    end
+    README["README.md"]:::data
+    LICENSE["LICENSE"]:::data
 
-    %% Data Flow
-    MNIST -->|"raw images"| Preproc
-    Finance -->|"financial indicators"| Preproc
+    %% Flow
+    FundInd --> Preproc
+    TechInd --> Preproc
+    LagPrices --> Preproc
 
-    Preproc -->|"noisy images"| SAE
-    Preproc -->|"noisy images"| SDAE
-    Preproc -->|"raw features"| FS
-    SAE -->|"feature vectors"| FS
-    SDAE -->|"feature vectors"| FS
+    Preproc --> NoneFS
+    Preproc --> AE
+    Preproc --> DAE
 
-    FS -->|"features"| LR
-    FS -->|"features"| SVR
-    FS -->|"features"| LSTM
+    NoneFS --> LR
+    AE --> LR
+    DAE --> LR
 
-    LR -->|"predictions"| Eval
-    SVR -->|"predictions"| Eval
-    LSTM -->|"predictions"| Eval
+    NoneFS --> SVR
+    AE --> SVR
+    DAE --> SVR
 
-    Eval -->|"results"| Viz
+    NoneFS --> LSTM
+    AE --> LSTM
+    DAE --> LSTM
 
-    %% Click Events
-    click MNIST "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
-    click Finance "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
-    click Preproc "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
-    click SAE "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
-    click SDAE "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
-    click FS "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
-    click LR "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
-    click SVR "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
-    click LSTM "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
-    click Eval "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
-    click Viz "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
-    click README "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/README.md"
-    click LICENSE "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/tree/main/LICENSE"
+    SMA --> Eval
+    LR --> Eval
+    SVR --> Eval
+    LSTM --> Eval
+
+    Eval --> Results
 
     %% Styles
     classDef data fill:#AED6F1,stroke:#1B4F72,color:#1B2631;
     classDef process fill:#ABEBC6,stroke:#1D8348,color:#145A32;
     classDef model fill:#F9E79F,stroke:#B7950B,color:#7D6608;
     classDef decision fill:#F5B7B1,stroke:#943126,color:#641E16;
+    classDef benchmark fill:#D7BDE2,stroke:#7D3C98,color:#512E5F;
+yaml
+Copiar
+Editar
