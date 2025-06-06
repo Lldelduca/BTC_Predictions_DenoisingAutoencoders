@@ -60,10 +60,6 @@ flowchart TD
     Eval["Evaluation: MAE, RMSE, MAPE"]:::decision
     Results["Results: Interval-wise Performance"]:::process
 
-    %% Documentation
-    README["README.md"]:::data
-    LICENSE["LICENSE"]:::data
-
     %% Flow
     FundInd --> Preproc
     TechInd --> Preproc
