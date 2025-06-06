@@ -98,6 +98,3 @@ flowchart TD
     classDef model fill:#F9E79F,stroke:#B7950B,color:#7D6608;
     classDef decision fill:#F5B7B1,stroke:#943126,color:#641E16;
     classDef benchmark fill:#D7BDE2,stroke:#7D3C98,color:#512E5F;
-yaml
-Copiar
-Editar
