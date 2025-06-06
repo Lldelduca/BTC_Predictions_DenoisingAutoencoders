@@ -27,9 +27,7 @@ The code includes validation checks for the Linear Regression model, ensuring it
 
 To run the code, ensure all dependencies are installed, then execute the code cells in order. The results, including plots and evaluation metrics, will be displayed as the code runs.
 
-## Diagram
-
-## 🔁 Project Flowchart
+## Project Flowchart
 
 ```mermaid
 flowchart TD
