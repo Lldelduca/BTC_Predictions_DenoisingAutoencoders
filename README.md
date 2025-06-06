@@ -92,6 +92,21 @@ flowchart TD
 
     Eval --> Results
 
+    %% Click Events
+    click FundInd "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb" "See raw fundamental data code"
+    click TechInd "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb" "See technical indicators code"
+    click LagPrices "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb" "See lag feature engineering"
+    click Preproc "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb" "Data cleaning and preparation"
+    click AE "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb" "Autoencoder training"
+    click DAE "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb" "Denoising Autoencoder implementation"
+    click LR "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb" "Linear regression modeling"
+    click SVR "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb" "SVR modeling with Optuna"
+    click LSTM "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb" "LSTM architecture"
+    click Eval "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb" "Model evaluation metrics"
+    click Results "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb" "Interval-specific results"
+    click README "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/README.md"
+    click LICENSE "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/LICENSE"
+
     %% Styles
     classDef data fill:#AED6F1,stroke:#1B4F72,color:#1B2631;
     classDef process fill:#ABEBC6,stroke:#1D8348,color:#145A32;
