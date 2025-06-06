@@ -29,6 +29,9 @@ To run the code, ensure all dependencies are installed, then execute the code ce
 
 ## Diagram
 
+## 🔁 Project Flowchart
+
+```mermaid
 flowchart TD
     %% Data Sources
     subgraph "Data Acquisition"
