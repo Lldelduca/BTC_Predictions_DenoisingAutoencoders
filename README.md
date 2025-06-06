@@ -26,3 +26,82 @@ The extension involves predicting Bitcoin prices using various features and a tw
 The code includes validation checks for the Linear Regression model, ensuring its validity using statistical tests like Durbin-Watson, White's Test, and Jarque-Bera Test. Residuals and kernel density plots are generated for further analysis.
 
 To run the code, ensure all dependencies are installed, then execute the code cells in order. The results, including plots and evaluation metrics, will be displayed as the code runs.
+
+## Diagram
+
+flowchart TD
+    %% Data Sources
+    subgraph "Data Acquisition"
+        MNIST["MNIST Data Loader"]:::data
+        Finance["Financial Data Scrapers"]:::data
+    end
+
+    %% Preprocessing
+    Preproc["Splitting, Scaling, Noise Injection, Lag Features"]:::process
+
+    %% Encoding
+    subgraph "Encoding Stage"
+        SAE["SAE Training"]:::model
+        SDAE["SDAE Training"]:::model
+    end
+
+    %% Feature Selection
+    FS["Feature Selection & Combination"]:::process
+
+    %% Predictive Modeling
+    subgraph "Predictive Modeling"
+        LR["Linear Regression + Optuna"]:::model
+        SVR["SVR + Optuna"]:::model
+        LSTM["LSTM + Optuna"]:::model
+    end
+
+    %% Evaluation and Visualization
+    Eval{"Evaluation & Statistical Tests"}:::decision
+    Viz["Visualization & Reporting"]:::process
+
+    %% Documentation
+    subgraph "Project Documentation"
+        README["README.md"]:::data
+        LICENSE["LICENSE"]:::data
+    end
+
+    %% Data Flow
+    MNIST -->|"raw images"| Preproc
+    Finance -->|"financial indicators"| Preproc
+
+    Preproc -->|"noisy images"| SAE
+    Preproc -->|"noisy images"| SDAE
+    Preproc -->|"raw features"| FS
+    SAE -->|"feature vectors"| FS
+    SDAE -->|"feature vectors"| FS
+
+    FS -->|"features"| LR
+    FS -->|"features"| SVR
+    FS -->|"features"| LSTM
+
+    LR -->|"predictions"| Eval
+    SVR -->|"predictions"| Eval
+    LSTM -->|"predictions"| Eval
+
+    Eval -->|"results"| Viz
+
+    %% Click Events
+    click MNIST "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
+    click Finance "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
+    click Preproc "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
+    click SAE "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
+    click SDAE "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
+    click FS "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
+    click LR "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
+    click SVR "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
+    click LSTM "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
+    click Eval "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
+    click Viz "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/Full_Notebook.ipynb"
+    click README "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/blob/main/README.md"
+    click LICENSE "https://github.com/lldelduca/btc_predictions_denoisingautoencoders/tree/main/LICENSE"
+
+    %% Styles
+    classDef data fill:#AED6F1,stroke:#1B4F72,color:#1B2631;
+    classDef process fill:#ABEBC6,stroke:#1D8348,color:#145A32;
+    classDef model fill:#F9E79F,stroke:#B7950B,color:#7D6608;
+    classDef decision fill:#F5B7B1,stroke:#943126,color:#641E16;
